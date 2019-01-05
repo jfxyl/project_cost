@@ -4,7 +4,8 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use App\Exceptions\ApiException;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
@@ -47,14 +48,38 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if($exception instanceof ApiException){
-            $result = [
-                "code"=>422,
-                "msg"=>$exception->getMessage(),
-                "data"=>""
-            ];
-            return response()->json($result);
-        }
         return parent::render($request, $exception);
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if($request->expectsJson()){
+            $response=response()->json([
+                    'status'=>false,
+                    'msg' => $exception->getMessage(),
+                    'errors'=>[],
+                ], 200);
+        }else{
+            $response=redirect()->guest(route('login'));
+        }
+        return $response;
+    }
+
+    public function convertValidationExceptionToResponse(ValidationException $exception, $request)
+    {
+        $data = $exception->validator->getMessageBag();
+        $msg = collect($data)->first();
+        if(is_array($msg)){
+            $msg = $msg[0];
+        }
+        if($request->expectsJson()){
+            $response=response()->json([
+                    'status'=>false,
+                    'msg' => $msg,
+                ], 200);
+        }else{
+            return redirect()->back()->withErrors(['msg' => $msg]);
+        }
+        return $response;
     }
 }
