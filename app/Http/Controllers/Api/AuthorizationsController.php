@@ -16,8 +16,6 @@ class AuthorizationsController extends Controller
         if (!$token = Auth::attempt(['phone' => $phone, 'password' => $password])) {
             return formError('密码错误！');
         }
-        $user = Auth::user();
-        dump($user->isAdmin());
-        dd($token);
+        return $this->response->array(formSuccess('登陆成功！'))->withHeader('Authorization','Bearer '.Auth::fromUser(Auth::user()));
     }
 }

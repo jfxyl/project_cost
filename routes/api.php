@@ -21,8 +21,9 @@ $api->version('v1',
         $api->post('users', 'UsersController@store')->name('users.store');
         $api->post('login', 'AuthorizationsController@login')->name('authorizations.login');
         $api->post('modifyPassword','UsersController@modifyPassword')->name('users.modifyPassword');
+        $api->post('verificationCode','VerificationCodeController@verificationCode');
         $api->get('supplyCates','SupplyCatesController@supplyCates')->name('supplyCates.supplyCates');
-
+        
         $api->group(['middleware' => ['jwt.token.refresh']],function($api){
             $api->post('me','UsersController@me')->name('users.me');
             $api->post('motifyUserInfo','UsersController@modifyUserInfo')->name('users.modifyUserInfo');

@@ -16,34 +16,23 @@ class UsersController extends Controller
 {
     public function store(UserRequest $request)
     {
-        // $verifyData = \Cache::get('register_code_'.$request->phone);
-        $verifyData = '1234';
+        $verifyData = \Cache::get('register_code_'.$request->phone);
         if (!$verifyData) {
             return formError('验证码已失效！');
         }
-
         if (!hash_equals($request->verification_code, $verifyData)) {
             // 返回401
             return formError('验证码错误！');
         }
-
         $user = User::create([
             'name' => $request->name,
             'company_name' => $request->company_name,
             'phone' => $request->phone,
             'password' => bcrypt($request->password),
         ]);
-
         // 清除验证码缓存
         \Cache::forget('register_code_'.$request->phone);
-
-		// return $this->response->item($user, new UserTransformer())
-		// ->setMeta([
-		// 	'access_token' => \Auth::guard('api')->fromUser($user),
-		// 	'token_type' => 'Bearer',
-		// 	'expires_in' => \Auth::guard('api')->factory()->getTTL()*60
-		// ])
-        // ->setStatusCode(201);
+        return $this->response->array(formSuccess('注册成功！'))->withHeader('Authorization','Bearer '.Auth::fromUser($user));
     }
 
     public function modifyPassword(ModifyPasswordRequest $request)

@@ -15,10 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // app('api.exception')->register(function (\Exception $exception) {
-        //     $request = Request::capture();
-        //     return app('App\Exceptions\Handler')->render($request, $exception);
-        // });
+        app('api.exception')->register(function (\Exception $exception) {
+            $request = Request::capture();
+            return app('App\Exceptions\Handler')->render($request, $exception);
+        });
         Resource::withoutWrapping();
     }
 
