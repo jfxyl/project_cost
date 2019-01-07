@@ -18,9 +18,14 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', 
     ['namespace' => 'App\Http\Controllers\Api'],
     function($api) {
-        $api->get('version', function() {
-            return response('this is version v1');
-        });
         $api->post('users', 'UsersController@store')->name('users.store');
+        $api->post('login', 'AuthorizationsController@login')->name('authorizations.login');
+        $api->post('modifyPassword','UsersController@modifyPassword')->name('users.modifyPassword');
+        $api->get('supplyCates','SupplyCatesController@supplyCates')->name('supplyCates.supplyCates');
+
+        $api->group(['middleware' => ['jwt.token.refresh']],function($api){
+            $api->post('me','UsersController@me')->name('users.me');
+            $api->post('motifyUserInfo','UsersController@modifyUserInfo')->name('users.modifyUserInfo');
+        });
 });
 
