@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\VerificationCodeRequest;
+use GuzzleHttp\Client;
 
 class VerificationCodeController extends Controller
 {
@@ -19,17 +20,9 @@ class VerificationCodeController extends Controller
 		} else {
 			// 生成4位随机数，左侧补0
 			$code = str_pad(random_int(1, 9999), 4, 0, STR_PAD_LEFT);
-			try {
-				$result = $easySms->send($request->phone, [
-					'template' => '200437',
-					'data' => [
-						$code,
-						2
-					],
-				]);
-			} catch (\Overtrue\EasySms\Exceptions\NoGatewayAvailableException $exception) {
-				$message = $exception->getException('yunpian')->getMessage();
-				return $this->response->errorInternal($message ?? '短信发送异常');
+			$res = $this->sendSms(['Phones'=>$request->phone,'Content' => '您的示例验证码是：'.$code]);
+			if(!$res['status']){
+				return formError('短信发送失败（'.$res['msg'].'）！');
 			}
         }
         
@@ -38,5 +31,24 @@ class VerificationCodeController extends Controller
         // 缓存验证码 2分钟过期。
         \Cache::put($key, $code, $expiredAt);
         return formSuccess('短信发送成功！');
-    }
+	}
+	
+	private function sendSms($data)
+	{
+		$conf = [
+			'UserName' => config('sms.UserName'),
+			'Token' => config('sms.Token')
+		];
+		$data = array_merge($conf,$data);
+		$xml = array2xml($data);
+		$client = new Client();
+		$response = $client->request('POST', 'https://api.bk.sh.cn:8081/sms_send.do', ['body' => $xml]);
+		$body = $response->getBody();
+		$arr = xml2array($body);
+		if($arr['errcode'] == 0){
+			return ['status' => true,'msg' => $arr['errmsg']];
+		}else{
+			return ['status' => false,'msg' => $arr['errmsg']];
+		}
+	}
 }
