@@ -18,6 +18,7 @@ class User extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'company_name' => $this->company_name,
+            'phone' => $this->phone,
             'wechat' => $this->wechat,
             'is_admin' => $this->is_admin,
             'supply_cate_ids' => $this->supplyCates->pluck('id'),
