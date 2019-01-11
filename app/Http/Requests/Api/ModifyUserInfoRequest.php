@@ -26,7 +26,7 @@ class ModifyUserInfoRequest extends FormRequest
     {
         return [
             'company_name' => 'bail|required|between:2,20',
-            'wechat' => ['bail','regex:/^[a-zA-Z][\w\d-]{5,19}$/',Rule::unique('users')->ignore(Auth::user()->id)],
+            'wechat' => ['bail','regex:/^[a-zA-Z][\w\d-]{5,19}$/','nullable',Rule::unique('users')->ignore(Auth::user()->id)],
             'supply_cates' => 'bail|required|array',
             'supply_cates.*' => 'bail|required|exists:supply_cates,id'
         ];

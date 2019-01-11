@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(SupplyCatesTableSeeder::class);
+        $this->call([
+            SupplyCatesTableSeeder::class,
+            CICTableSeeder::class
+        ]);
     }
 }

@@ -22,7 +22,7 @@ $api->version('v1',
         $api->post('login', 'AuthorizationsController@login')->name('authorizations.login');
         $api->post('modifyPassword','UsersController@modifyPassword')->name('users.modifyPassword');
         $api->post('verificationCode','VerificationCodeController@verificationCode');
-        $api->get('supplyCates','SupplyCatesController@supplyCates')->name('supplyCates.supplyCates');
+        $api->get('items','ItemsController@Items')->name('items.items');
         $api->get('projects','ProjectsController@projects')->name('projects.projects');
         
         $api->group(['middleware' => ['jwt.token.refresh']],function($api){
