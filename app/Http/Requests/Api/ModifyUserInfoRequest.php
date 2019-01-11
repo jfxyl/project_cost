@@ -27,8 +27,8 @@ class ModifyUserInfoRequest extends FormRequest
         return [
             'company_name' => 'bail|required|between:2,20',
             'wechat' => ['bail','regex:/^[a-zA-Z][\w\d-]{5,19}$/','nullable',Rule::unique('users')->ignore(Auth::user()->id)],
-            'supply_cates' => 'bail|required|array',
-            'supply_cates.*' => 'bail|required|exists:supply_cates,id'
+            'items' => 'bail|required|array',
+            'items.*' => 'bail|required|exists:items,id'
         ];
     }
 
@@ -37,7 +37,7 @@ class ModifyUserInfoRequest extends FormRequest
         return [
             'company_name' => '公司名称',
             'wechat' => '微信号',
-            'supply_cates' => '供应类别',
+            'items' => '供应类别',
         ];
     }
 
@@ -49,7 +49,7 @@ class ModifyUserInfoRequest extends FormRequest
             'regex' => ':attribute 格式不正确！',
             'unique' => ':attribute 已被使用！',
             'array' => ':attribute 至少选一个！',
-            'supply_cates.*.exists' => '供应类别 不存在！'
+            'items.*.exists' => '供应类别 不存在！'
         ];
     }
 }

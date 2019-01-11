@@ -7,7 +7,7 @@ use App\Http\Requests\Api\UserRequest;
 use App\Http\Requests\Api\ModifyPasswordRequest;
 use App\Http\Requests\Api\ModifyUserInfoRequest;
 use App\Models\User;
-use App\Models\UserSupplyCate;
+use App\Models\UserItem;
 use App\Http\Resources\User as UserResource;
 use Auth;
 use DB;
@@ -66,10 +66,10 @@ class UsersController extends Controller
             $user->company_name = $request->company_name;
             $user->wechat = $request->wechat;
             $user->save();
-            UserSupplyCate::where('user_id',$user->id)->whereNotIn('supply_cate_id',$request->supply_cates)->delete();  // 删除没选择的供应类别
-            foreach($request->supply_cates as $supply_cate_id)
+            UserItem::where('user_id',$user->id)->whereNotIn('item_id',$request->items)->delete();  // 删除没选择的供应类别
+            foreach($request->items as $item_id)
             {
-                UserSupplyCate::firstOrCreate(['user_id'=>$user->id,'supply_cate_id'=>$supply_cate_id]);
+                UserItem::firstOrCreate(['user_id'=>$user->id,'item_id'=>$item_id]);
             }
             DB::commit();
             return formSuccess('修改个人资料成功！');
