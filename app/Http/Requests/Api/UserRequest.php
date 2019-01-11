@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
             'company_name' => 'bail|required|between:2,20',
             'phone' => ['bail','required','regex:/^1\d{10}$/','unique:users'],
             'verification_code' => 'required',
-            'password' => 'bail|required|between:6,16|alpha_num'
+            'password' => 'bail|required|between:6,16|alpha_num|confirmed'
         ];
     }
 
@@ -52,7 +52,8 @@ class UserRequest extends FormRequest
             'regex' => ':attribute 格式不正确！',
             'unique' => ':attribute 已存在！',
             'password.between' => '密码 应为:min-:max位的数字字母组合!',
-            'alpha_num' => ':attribute 应为数字与字母的组合！'
+            'alpha_num' => ':attribute 应为数字与字母的组合！',
+            'confirmed' => '两次密码不相同！'
         ];
     }
 

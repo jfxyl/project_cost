@@ -15,15 +15,17 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->comment('对应管理员id');
             $table->string('name');
-            $table->decimal('area',12,2)->comment('建筑总面积');
-            $table->decimal('above_area',12,2)->comment('正负零以上建筑面积');
-            $table->decimal('above_open_ratio',12,2)->comment('正负零以上展开系数');
-            $table->decimal('below_area',12,2)->comment('正负零以下建筑面积');
-            $table->decimal('below_open_ratio',12,2)->comment('正负零以下展开系数');
+            $table->double('area')->comment('建筑总面积');
+            $table->double('above_area')->comment('正负零以上建筑面积');
+            $table->double('above_open_ratio')->comment('正负零以上展开系数');
+            $table->double('below_area')->comment('正负零以下建筑面积');
+            $table->double('below_open_ratio')->comment('正负零以下展开系数');
             $table->string('intro')->comment('项目简介');
-            $table->string('attachment')->comment('附件');
-            $table->decimal('win_bid_price',20,2)->comment('中标价格');
+            $table->double('reference_price')->comment('对比价');
+            $table->string('attachment')->nullable()->comment('附件');
+
             $table->timestamps();
         });
     }

@@ -57,42 +57,10 @@ class Handler extends ExceptionHandler
         if ($exception instanceof UnauthorizedHttpException) {
             return response(['status' => 1,'msg' => $exception->getMessage()]);
         }
+        // 用户权限的异常
+        if ($exception instanceof AuthenticationException) {
+            return response(['status' => 1,'msg' => $exception->getMessage()]);
+        }
         return parent::render($request, $exception);
     }
-    // public function render($request, Exception $exception)
-    // {
-    //     return parent::render($request, $exception);
-    // }
-
-    // protected function unauthenticated($request, AuthenticationException $exception)
-    // {
-    //     if($request->expectsJson()){
-    //         $response=response()->json([
-    //                 'status'=>1,
-    //                 'msg' => $exception->getMessage(),
-    //                 'errors'=>[],
-    //             ], 200);
-    //     }else{
-    //         $response=redirect()->guest(route('login'));
-    //     }
-    //     return $response;
-    // }
-
-    // public function convertValidationExceptionToResponse(ValidationException $exception, $request)
-    // {
-    //     $data = $exception->validator->getMessageBag();
-    //     $msg = collect($data)->first();
-    //     if(is_array($msg)){
-    //         $msg = $msg[0];
-    //     }
-    //     if($request->expectsJson()){
-    //         $response=response()->json([
-    //                 'status'=>2,
-    //                 'msg' => $msg,
-    //             ], 200);
-    //     }else{
-    //         return redirect()->back()->withErrors(['msg' => $msg]);
-    //     }
-    //     return $response;
-    // }
 }

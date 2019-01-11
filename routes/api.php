@@ -23,10 +23,12 @@ $api->version('v1',
         $api->post('modifyPassword','UsersController@modifyPassword')->name('users.modifyPassword');
         $api->post('verificationCode','VerificationCodeController@verificationCode');
         $api->get('supplyCates','SupplyCatesController@supplyCates')->name('supplyCates.supplyCates');
+        $api->get('projects','ProjectsController@projects')->name('projects.projects');
         
         $api->group(['middleware' => ['jwt.token.refresh']],function($api){
             $api->post('me','UsersController@me')->name('users.me');
             $api->post('motifyUserInfo','UsersController@modifyUserInfo')->name('users.modifyUserInfo');
+            $api->post('projects','ProjectsController@store')->name('projects.store');
         });
 });
 
