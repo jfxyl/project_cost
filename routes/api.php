@@ -13,22 +13,25 @@ use Illuminate\Http\Request;
 |
 */
 
-$api = app('Dingo\Api\Routing\Router');
+$api = app('Dingo\Api\Routing\Router');     //不支持隐式绑定
 
 $api->version('v1', 
     ['namespace' => 'App\Http\Controllers\Api'],
     function($api) {
-        $api->post('users', 'UsersController@store')->name('users.store');
-        $api->post('login', 'AuthorizationsController@login')->name('authorizations.login');
-        $api->post('modifyPassword','UsersController@modifyPassword')->name('users.modifyPassword');
+        $api->post('users', 'UsersController@store');
+        $api->post('login', 'AuthorizationsController@login');
+        $api->post('modifyPassword','UsersController@modifyPassword');
         $api->post('verificationCode','VerificationCodeController@verificationCode');
-        $api->get('items','ItemsController@Items')->name('items.items');
-        $api->get('projects','ProjectsController@projects')->name('projects.projects');
-        
+        $api->get('items','ItemsController@Items');
+        $api->get('projects','ProjectsController@projects');
+        $api->get('catalogs','ItemsController@catalogs');
+
         $api->group(['middleware' => ['jwt.token.refresh']],function($api){
-            $api->post('me','UsersController@me')->name('users.me');
-            $api->post('motifyUserInfo','UsersController@modifyUserInfo')->name('users.modifyUserInfo');
-            $api->post('projects','ProjectsController@store')->name('projects.store');
+            $api->post('me','UsersController@me');
+            $api->post('motifyUserInfo','UsersController@modifyUserInfo');
+            $api->post('projects','ProjectsController@store');
+            $api->post('project_items','ProjectsController@project_items_store');
+            $api->get('project_items','ProjectsController@project_items');
         });
 });
 

@@ -46,8 +46,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->is_admin?true:false;
     }
 
-    public function supplyCates()
+    public function items()
     {
-        return $this->belongsToMany(SupplyCate::class,'user_supply_cates','user_id','supply_cate_id');
+        return $this->belongsToMany(Item::class,'user_items','user_id','item_id');
     }
 }

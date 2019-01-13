@@ -1,8 +1,8 @@
 <?php
 
-function formSuccess($msg = '修改成功！')
+function formSuccess($msg = '修改成功！',$data = null)
 {
-    return ['status' => 0,'msg' => $msg];
+    return $data?['status' => 0,'msg' => $msg,'data'=>$data]:['status' => 0,'msg' => $msg];
 }
 
 function authError($msg = '认证失败，请先登录！'){
