@@ -21,7 +21,7 @@ class User extends JsonResource
             'phone' => $this->phone,
             'wechat' => $this->wechat,
             'is_admin' => $this->is_admin,
-            'supply_cate_ids' => $this->supplyCates->pluck('id'),
+            'item_ids' => $this->items->pluck('id'),
             'created_at' => $this->created_at->toDateTimeString(),
         ];
     }
