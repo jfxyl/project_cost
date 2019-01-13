@@ -26,7 +26,7 @@ class ProjectsController extends Controller
 
     public function projects()
     {
-        return Project::orderBy('created_at','desc')->simplePaginate(10);
+        return Project::orderBy('created_at','desc')->paginate(10);
     }
 
     public function project_items_store(ProjectItemsRequest $request)
