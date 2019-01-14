@@ -19,8 +19,8 @@ class CreateProjectUserCatalogsTable extends Migration
             $table->integer('user_id')->comment('用户id');
             $table->integer('catalog_id')->comment('条目id');
             $table->integer('amount')->comment('数量');
-            $table->double('unit_price')->comment('除税单价(元)');
-            $table->string('remark')->comment('备注');
+            $table->double('unit_price')->nullable()->comment('除税单价(元)');
+            //$table->string('remark')->comment('备注');
         });
     }
 

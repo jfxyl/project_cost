@@ -9,4 +9,12 @@ class ProjectItem extends Model
     protected $fillable = [
         'project_id','item_id'
     ];
+
+//    public function setRemarkAttribute($value)
+//    {
+//        if($value == null){
+//            $value = '';
+//        }
+//        $this->attributes['remark'] = $value;
+//    }
 }

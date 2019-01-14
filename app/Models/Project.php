@@ -18,4 +18,9 @@ class Project extends Model
     {
         return $this->belongsToMany(Item::class,'project_items','project_id','item_id')->withPivot('status')->wherePivot('status',1)->withTimestamps();
     }
+
+    public function getAttachmentAttribute($value)
+    {
+        return $value?url(\Storage::url($value)):'';
+    }
 }

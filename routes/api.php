@@ -24,14 +24,16 @@ $api->version('v1',
         $api->post('verificationCode','VerificationCodeController@verificationCode');
         $api->get('items','ItemsController@Items');
         $api->get('projects','ProjectsController@projects');
+        $api->get('project','ProjectsController@project');
         $api->get('catalogs','ItemsController@catalogs');
 
         $api->group(['middleware' => ['jwt.token.refresh']],function($api){
             $api->post('me','UsersController@me');
             $api->post('motifyUserInfo','UsersController@modifyUserInfo');
             $api->post('projects','ProjectsController@store');
-            $api->post('project_items','ProjectsController@project_items_store');
-            $api->get('project_items','ProjectsController@project_items');
+            $api->post('project_items','ProjectsController@projectItemsStore');
+            $api->get('project_items','ProjectsController@projectItems');
+            $api->post('projectUserCatalogs','ProjectsController@projectUserCatalogsStore');
         });
 });
 
