@@ -73,6 +73,9 @@ class ProjectsController extends Controller
                     'catalog_id'=>$catalog['catalog_id']
                 ],['amount'=>$catalog['amount']]);
             }
+            if(!$request->remark){
+                $request->remark = '';
+            }
             ProjectItem::where('project_id',$request->project_id)->where('item_id',$request->item_id)->update(['remark'=>$request->remark]);
             DB::commit();
             return formSuccess('保存成功！');

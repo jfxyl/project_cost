@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProjectItem extends Model
 {
     protected $fillable = [
-        'project_id','item_id'
+        'project_id','item_id','status','remark'
     ];
 
 //    public function setRemarkAttribute($value)
