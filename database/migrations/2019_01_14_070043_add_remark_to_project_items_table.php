@@ -14,7 +14,7 @@ class AddRemarkToProjectItemsTable extends Migration
     public function up()
     {
         Schema::table('project_items', function (Blueprint $table) {
-            $table->string('remark')->nullbale();
+            $table->string('remark')->default('')->nullbale();
         });
     }
 
