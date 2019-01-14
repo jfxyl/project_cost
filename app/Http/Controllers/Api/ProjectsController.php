@@ -63,8 +63,8 @@ class ProjectsController extends Controller
     public function projectUserCatalogsStore(ProjectUserCatalogsRequest $request)
     {
         $user = Auth::user();
-        DB::beginTransaction();
-        try{
+//        DB::beginTransaction();
+//        try{
             foreach($request->catalogs as $catalog)
             {
                 ProjectUserCatalog::firstOrCreate([
@@ -77,11 +77,11 @@ class ProjectsController extends Controller
                 $request->remark = '';
             }
             ProjectItem::where('project_id',$request->project_id)->where('item_id',$request->item_id)->update(['remark'=>$request->remark]);
-            DB::commit();
-            return formSuccess('保存成功！');
-        }catch (\Exception $e){
-            DB::rollBack();
-            return formError('保存失败！');
-        }
+//            DB::commit();
+//            return formSuccess('保存成功！');
+//        }catch (\Exception $e){
+//            DB::rollBack();
+//            return formError('保存失败！');
+//        }
     }
 }
