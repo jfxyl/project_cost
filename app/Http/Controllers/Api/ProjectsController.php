@@ -42,7 +42,7 @@ class ProjectsController extends Controller
         ProjectItem::where('project_id',$request->project_id)->whereNotIn('item_id',$request->items)->update(['status' => 0]);  // 删除没选择的供应类别
         foreach($request->items as $item_id)
         {
-            ProjectItem::firstOrCreate(['project_id'=>$request->project_id,'item_id'=>$item_id],['status'=>1]);
+            ProjectItem::updateOrCreate(['project_id'=>$request->project_id,'item_id'=>$item_id],['status'=>1]);
         }
         return formSuccess('保存成功！');
     }
