@@ -8,6 +8,7 @@ use App\Models\ProjectItem;
 use App\Http\Requests\Api\ProjectRequest;
 use App\Http\Requests\Api\ProjectItemsRequest;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectsController extends Controller
 {
@@ -16,10 +17,15 @@ class ProjectsController extends Controller
         if($request->area != $request->above_area + $request->below_area){
             return formError('建筑总面积应等于正负零上下面积之和！');
         }
-        $data = array_merge($request->all(),['user_id' => Auth::user()->id]);
+        if($request->attachment){
+            $realpath = $request->attachment->store('public/uploads');
+        }
+        $data = array_merge($request->except('attachment'),['user_id' => Auth::user()->id],isset($realpath)?['attachment'=>$realpath]:[]);
         if($project = Project::create($data)){
+            $project->attachment = url(Storage::url($project->attachment));
             return formSuccess('新建项目成功！',$project);
         }else{
+            Storage::delete($project->attachment);
             return formError('新建项目失败！');
         }
     }

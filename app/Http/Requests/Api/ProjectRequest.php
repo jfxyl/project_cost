@@ -39,7 +39,7 @@ class ProjectRequest extends FormRequest
             'below_open_ratio' => 'bail|required|numeric',
             'reference_price' => 'bail|required|numeric',
             'intro' => 'bail|required',
-            'attachment' => 'bail'
+            'attachment' => 'bail|file'
         ];
     }
 
@@ -64,7 +64,8 @@ class ProjectRequest extends FormRequest
             'required' => ':attribute 不能为空！',
             'between' => ':attribute 长度应在:min - :max之间！',
             'numeric' => ':attribute 应该为数字！',
-            'unique' => ':attribute 已存在！'
+            'unique' => ':attribute 已存在！',
+            'file' => ':attribute 必须是文件！',
         ];
     }
 }
