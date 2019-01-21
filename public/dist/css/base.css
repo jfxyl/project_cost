@@ -1,0 +1,161 @@
+/*---------- 通用模块 ----------*/
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+aside,
+blockquote,
+th,
+td,
+span,
+i,
+b,
+img {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,
+body {
+    min-height: 100%;
+    width: 100%;
+}
+html {
+    user-select: none;
+}
+body {
+    position: relative;
+    text-size-adjust: 100%;
+}
+:focus {
+    outline: 0;
+    box-shadow: none;
+}
+a,
+input,
+select,
+textarea,
+button {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+a {
+    text-decoration: none;
+    outline: none;
+    font-weight: normal;
+    border: 0;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+ol,
+ul,
+li {
+    list-style: none;
+    vertical-align: middle;
+}
+input,
+textarea {
+    outline: none;
+    -webkit-appearance: none;
+    resize: none;
+}
+img,
+button,
+input,
+textarea {
+    border: none;
+}
+@media screen and (min-width: 320px) and (max-width: 359px) {
+    html {
+        font-size: 14px;
+    }
+}
+@media screen and (min-width: 360px) and (max-width: 374px) {
+    html {
+        font-size: 13px;
+    }
+}
+@media screen and (min-width: 375px) and (max-width: 479px) {
+    html {
+        font-size: 15px;
+    }
+}
+@media screen and (min-width: 480px) and (max-width: 539px) {
+    html {
+        font-size: 17px;
+    }
+}
+@media screen and (min-width: 540px) and (max-width: 639px) {
+    html {
+        font-size: 19px;
+    }
+}
+@media screen and (min-width: 640px) {
+    html {
+        font-size: 24px;
+    }
+}
+body {
+    font-family: Helvetica;
+    background-color: #EFEFF4;
+    font-size: 0.8rem;
+    color: #262626;
+}
+::-webkit-input-placeholder {
+    /* WebKit browsers */
+    font-size: 1.07rem;
+    color: #999;
+}
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    font-size: 1.07rem;
+    color: #999;
+}
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #999;
+    font-size: 1.07rem;
+}
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #999;
+    font-size: 1.07rem;
+}
+.m-row {
+    display: table;
+    width: 100%;
+}
+.m-row:before {
+    content: '';
+    display: table-row;
+    width: 100%;
+}
+.m-row .m-cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+.m-row .m-cell.m-cell-top {
+    vertical-align: top;
+}
+a[title=站长统计] {
+    display: none;
+}
